@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender" >
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${CONSOLE_LOG_THRESHOLD}</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>${CONSOLE_LOG_CHARSET}</charset>
+        </encoder>
+    </appender>
+
+    <appender name="DATA_MASK" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="dev.xp4.article.logger.layout.DataCleanAndMaskingPatternLayout">
+                <maskPattern>((?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4})</maskPattern> <!-- SSN -->
+                <maskPattern>(\b(?:\d{3}\.){2}\d{3}-\d{2}\b)</maskPattern> <!-- CPF -->
+                <maskPattern>(\b\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}\b)</maskPattern> <!-- CNPJ -->
+                <maskPattern>(\b\w+@\w+(\.\w+)+\b)</maskPattern> <!-- Email -->
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <logger name="dev.xp4.article" level="INFO" />
+    <logger name="dev.xp4.article.tasks" level="OFF" />
+    <logger name="dev.xp4.article.tasks.error" level="ERROR" />
+    <logger name="dev.xp4.article.tasks.warn" level="WARN" />
+    <logger name="dev.xp4.article.tasks.info" level="INFO" />
+    <logger name="dev.xp4.article.tasks.debug" level="DEBUG" />
+    <logger name="dev.xp4.article.tasks.trace" level="TRACE" />
+    <logger name="dev.xp4.article.tasks.mask" level="INFO" />
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+       <!-- <appender-ref ref="DATA_MASK" /> -->
+    </root>
+
+</configuration>

@@ -1,0 +1,25 @@
+server:
+  shutdown: graceful
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 60
+
+management:
+  health:
+    liveness-state:
+      enabled: true
+    readiness-state:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, shutdown, loggers
+  endpoint:
+    loggers:
+      enabled: true
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+      enabled: true
