@@ -5,6 +5,9 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 60
 
+logging.level
+
+
 management:
   health:
     liveness-state:
